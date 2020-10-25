@@ -4,6 +4,27 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'com.google.protobuf'
+
+protobuf {
+  protoc {
+    artifact = "com.google.protobuf:protoc:3.10.0"
+  }
+
+  // Generates the java Protobuf-lite code for the Protobufs in this project. See
+  // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
+  // for more information.
+  generateProtoTasks {
+    all().each { task ->
+      task.builtins {
+        java {
+          option 'lite'
+        }
+      }
+    }
+  }
+}
+
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -33,13 +54,17 @@ dependencies {
   // Support Libraries
   implementation 'androidx.appcompat:appcompat:1.2.0'
   implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+  implementation 'com.google.android.material:material:1.2.1'
 
   // Testing Dependencies
   testImplementation 'junit:junit:4.13.1'
   androidTestImplementation 'androidx.test.ext:junit:1.1.2'
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-  // TUTORIAL DEPENDENCIES HERE
+  // Preferences DataStore
+  implementation "androidx.datastore:datastore-preferences:1.0.0-alpha02"
 
-
+  // Proto DataStore
+  implementation "androidx.datastore:datastore-core:1.0.0-alpha02"
+  implementation "com.google.protobuf:protobuf-javalite:3.11.0"
 }

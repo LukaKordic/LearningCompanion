@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+option java_package = "com.codelab.android.datastore";
+option java_multiple_files = true;
+
+message Course {
+  string name = 1;
+}
