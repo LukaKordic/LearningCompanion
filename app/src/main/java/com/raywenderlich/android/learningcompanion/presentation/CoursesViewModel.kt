@@ -34,8 +34,16 @@
 
 package com.raywenderlich.android.learningcompanion.presentation
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import com.raywenderlich.android.learningcompanion.data.getCourseList
+import com.raywenderlich.android.learningcompanion.data.prefsstore.PrefsStore
+import com.raywenderlich.android.learningcompanion.data.protostore.ProtoStore
 
-class CoursesViewModel : ViewModel() {
+class CoursesViewModel @ViewModelInject constructor(
+    private val protoStore: ProtoStore,
+    private val prefsStore: PrefsStore) : ViewModel() {
 
+  fun getCourses() = getCourseList().asLiveData()
 }

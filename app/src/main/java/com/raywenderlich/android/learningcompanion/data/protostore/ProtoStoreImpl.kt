@@ -32,12 +32,35 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.android.learningcompanion.data.datastore
+package com.raywenderlich.android.learningcompanion.data.protostore
 
-interface LocalCache {
-  fun storeCourse()
+import android.content.Context
+import androidx.datastore.DataStore
+import androidx.datastore.createDataStore
+import com.raywenderlich.android.learningcompanion.data.Course
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.catch
+import java.io.IOException
+import javax.inject.Inject
 
-  fun storeCourses()
+class ProtoStoreImpl @Inject constructor(@ApplicationContext private val context: Context) :
+    ProtoStore {
 
-  fun getCourses()
+  private val dataStore: DataStore<Course> = context.createDataStore(
+      fileName = "courses.pb",
+      serializer = CourseSerializer()
+  )
+
+  override val coursesFlow = dataStore.data.catch { exception ->
+    if (exception is IOException) {
+      exception.printStackTrace()
+      emit(Course.getDefaultInstance())
+    } else {
+      throw exception
+    }
+  }
+
+  override suspend fun updateCourseName(name: String) {
+    dataStore.updateData { it. toBuilder().setName(name).build() }
+  }
 }

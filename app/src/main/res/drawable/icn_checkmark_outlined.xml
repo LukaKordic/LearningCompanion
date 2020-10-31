@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<!--
   ~ Copyright (c) 2020 Razeware LLC
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -31,23 +31,14 @@
   ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   ~ THE SOFTWARE.
   -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context=".ui.view.CoursesActivity">
 
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/courseList"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
-
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/addCourse"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom|end"
-    android:layout_margin="16dp"
-    android:contentDescription="@string/add_new_course_action"
-    android:src="@drawable/icn_add" />
-</FrameLayout>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?attr/colorControlNormal">
+  <path
+      android:fillColor="@android:color/white"
+      android:pathData="M16.59,7.58L10,14.17l-3.59,-3.58L5,12l5,5 8,-8zM12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2zM12,20c-4.42,0 -8,-3.58 -8,-8s3.58,-8 8,-8 8,3.58 8,8 -3.58,8 -8,8z"/>
+</vector>

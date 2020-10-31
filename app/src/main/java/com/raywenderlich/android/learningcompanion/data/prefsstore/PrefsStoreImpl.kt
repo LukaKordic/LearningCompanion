@@ -32,32 +32,9 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.android.learningcompanion.data.datastore
+package com.raywenderlich.android.learningcompanion.data.prefsstore
 
-import android.content.Context
-import androidx.datastore.DataStore
-import androidx.datastore.createDataStore
-import com.codelab.android.datastore.Course
-import kotlinx.coroutines.flow.catch
-import java.io.IOException
+import javax.inject.Inject
 
-class LocalCacheImpl(private val context: Context) {
-  private val dataStore: DataStore<Course> = context.createDataStore(
-      fileName = "courses.pb",
-      serializer = CourseSerializer()
-  )
-
-  val coursesFlow = dataStore.data.catch { exception ->
-    if (exception is IOException) {
-      exception.printStackTrace()
-      emit(Course.getDefaultInstance())
-    } else {
-      throw exception
-    }
-  }
-
-  suspend fun updateCourseName(name: String) {
-    dataStore.updateData { it.toBuilder().setName(name).build() }
-  }
-
+class PrefsStoreImpl @Inject constructor() : PrefsStore {
 }

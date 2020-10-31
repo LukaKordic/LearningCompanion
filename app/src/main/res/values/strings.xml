@@ -1,3 +1,8 @@
 <resources>
   <string name="app_name">LearningCompanion</string>
+  <string name="add_new_course_action">Add new course action</string>
+  <string name="description_hint">Description</string>
+  <string name="name_hint">Name</string>
+  <string name="btn_add_text">Add</string>
+  <string name="difficulty_level">Difficulty level</string>
 </resources>

@@ -32,50 +32,29 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.android.learningcompanion.ui.view
+package com.raywenderlich.android.learningcompanion.data.protostore
 
-import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.raywenderlich.android.learningcompanion.R
-import com.raywenderlich.android.learningcompanion.presentation.CoursesViewModel
-import com.raywenderlich.android.learningcompanion.ui.list.CoursesAdapter
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_courses.*
-import kotlinx.android.synthetic.main.dialog_add_course.*
+import androidx.datastore.CorruptionException
+import androidx.datastore.Serializer
+import androidx.datastore.preferences.protobuf.Internal
+import com.google.protobuf.InvalidProtocolBufferException
+import com.raywenderlich.android.learningcompanion.data.Course
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 
-@AndroidEntryPoint
-class CoursesActivity : AppCompatActivity() {
-  private val viewModel: CoursesViewModel by viewModels()
-  private val adapter by lazy { CoursesAdapter() }
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    setTheme(R.style.AppTheme)
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_courses)
-
-    initCourseList()
-    subscribeToData()
-    addCourse.setOnClickListener { showAddCourseDialog() }
-  }
-
-  private fun initCourseList() {
-    courseList.layoutManager = LinearLayoutManager(this)
-    courseList.itemAnimator = DefaultItemAnimator()
-    courseList.adapter = adapter
-  }
-
-  private fun subscribeToData() {
-    viewModel.getCourses().observe(this) {
-      adapter.setCourses(it)
+class CourseSerializer : Serializer<Course> {
+  override fun readFrom(input: InputStream): Course {
+    try {
+      return Course.parseFrom(input)
+    } catch (e: InvalidProtocolBufferException) {
+      throw CorruptionException("Cannot read proto.", e)
     }
   }
 
-  private fun showAddCourseDialog() {
-    AlertDialog.Builder(this).setView(R.layout.dialog_add_course).show()
-    done.setOnClickListener { viewModel }
+  override fun writeTo(t: Course, output: OutputStream) = try {
+    t.writeTo(output)
+  } catch (exception: IOException) {
+    exception.printStackTrace()
   }
 }

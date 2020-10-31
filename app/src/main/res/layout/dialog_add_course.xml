@@ -31,23 +31,35 @@
   ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   ~ THE SOFTWARE.
   -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".ui.view.CoursesActivity">
+  android:paddingTop="20dp"
+  android:paddingBottom="20dp"
+  android:orientation="vertical">
 
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/courseList"
+  <EditText
+    android:id="@+id/courseName"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:hint="@string/name_hint"
+    android:importantForAutofill="no"
+    android:inputType="text" />
 
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/addCourse"
+  <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:hint="@string/description_hint"
+    android:importantForAutofill="no"
+    android:inputType="text" />
+
+  <Button
+    android:id="@+id/done"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="bottom|end"
-    android:layout_margin="16dp"
-    android:contentDescription="@string/add_new_course_action"
-    android:src="@drawable/icn_add" />
-</FrameLayout>
+    android:layout_gravity="center"
+    android:text="@string/btn_add_text" />
+</LinearLayout>

@@ -31,23 +31,9 @@
   ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   ~ THE SOFTWARE.
   -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context=".ui.view.CoursesActivity">
 
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/courseList"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
-
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/addCourse"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom|end"
-    android:layout_margin="16dp"
-    android:contentDescription="@string/add_new_course_action"
-    android:src="@drawable/icn_add" />
-</FrameLayout>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:innerRadius="24dp"
+  android:shape="oval">
+  <solid android:color="@color/orange" />
+</shape>

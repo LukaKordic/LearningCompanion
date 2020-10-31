@@ -32,28 +32,24 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.android.learningcompanion.data.datastore
+package com.raywenderlich.android.learningcompanion.di
 
-import androidx.datastore.CorruptionException
-import androidx.datastore.Serializer
-import com.codelab.android.datastore.Course
-import com.google.protobuf.InvalidProtocolBufferException
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
+import com.raywenderlich.android.learningcompanion.data.prefsstore.PrefsStore
+import com.raywenderlich.android.learningcompanion.data.prefsstore.PrefsStoreImpl
+import com.raywenderlich.android.learningcompanion.data.protostore.ProtoStore
+import com.raywenderlich.android.learningcompanion.data.protostore.ProtoStoreImpl
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 
-class CourseSerializer : Serializer<Course> {
-  override fun readFrom(input: InputStream): Course {
-    try {
-      return Course.parseFrom(input)
-    } catch (e: InvalidProtocolBufferException) {
-      throw CorruptionException("Cannot read proto.", e)
-    }
-  }
+@Module
+@InstallIn(ActivityComponent::class)
+abstract class StoreModule {
 
-  override fun writeTo(t: Course, output: OutputStream) = try {
-    t.writeTo(output)
-  } catch (exception: IOException) {
-    exception.printStackTrace()
-  }
+  @Binds
+  abstract fun bindProtoStore(protoStoreImpl: ProtoStoreImpl): ProtoStore
+
+  @Binds
+  abstract fun bindPrefsStore(prefsStoreImpl: PrefsStoreImpl): PrefsStore
 }

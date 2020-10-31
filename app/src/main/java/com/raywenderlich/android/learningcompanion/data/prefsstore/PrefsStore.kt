@@ -32,50 +32,7 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.android.learningcompanion.ui.view
+package com.raywenderlich.android.learningcompanion.data.prefsstore
 
-import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.raywenderlich.android.learningcompanion.R
-import com.raywenderlich.android.learningcompanion.presentation.CoursesViewModel
-import com.raywenderlich.android.learningcompanion.ui.list.CoursesAdapter
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_courses.*
-import kotlinx.android.synthetic.main.dialog_add_course.*
-
-@AndroidEntryPoint
-class CoursesActivity : AppCompatActivity() {
-  private val viewModel: CoursesViewModel by viewModels()
-  private val adapter by lazy { CoursesAdapter() }
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    setTheme(R.style.AppTheme)
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_courses)
-
-    initCourseList()
-    subscribeToData()
-    addCourse.setOnClickListener { showAddCourseDialog() }
-  }
-
-  private fun initCourseList() {
-    courseList.layoutManager = LinearLayoutManager(this)
-    courseList.itemAnimator = DefaultItemAnimator()
-    courseList.adapter = adapter
-  }
-
-  private fun subscribeToData() {
-    viewModel.getCourses().observe(this) {
-      adapter.setCourses(it)
-    }
-  }
-
-  private fun showAddCourseDialog() {
-    AlertDialog.Builder(this).setView(R.layout.dialog_add_course).show()
-    done.setOnClickListener { viewModel }
-  }
+interface PrefsStore {
 }
