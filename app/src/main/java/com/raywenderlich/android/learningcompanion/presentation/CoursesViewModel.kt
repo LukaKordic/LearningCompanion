@@ -42,26 +42,11 @@ import com.raywenderlich.android.learningcompanion.data.FilterOption
 import com.raywenderlich.android.learningcompanion.data.getCourseList
 import com.raywenderlich.android.learningcompanion.data.model.Course
 import com.raywenderlich.android.learningcompanion.data.model.CourseLevel
-import com.raywenderlich.android.learningcompanion.data.prefsstore.PrefsStore
-import com.raywenderlich.android.learningcompanion.data.protostore.ProtoStore
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
-class CoursesViewModel @ViewModelInject constructor(
-    private val protoStore: ProtoStore,
-    private val prefsStore: PrefsStore) : ViewModel() {
+class CoursesViewModel @ViewModelInject constructor() : ViewModel() {
 
-  private val filterOptionsFlow = protoStore.filtersFlow
-
-  private val courseUiModelFlow = combine(getCourseList(), filterOptionsFlow) { courses: List<Course>, filterOption: FilterOption ->
-    return@combine CourseUiModel(
-        courses = filterCourses(courses, filterOption),
-        filter = filterOption.filter
-    )
-  }
-
-  val nightMode = prefsStore.isNightMode().asLiveData()
-  val courseUiModel = courseUiModelFlow.asLiveData()
+  val courses = getCourseList().asLiveData()
 
   private fun filterCourses(courses: List<Course>, filterOption: FilterOption): List<Course> {
     return when (filterOption.filter) {
@@ -80,25 +65,26 @@ class CoursesViewModel @ViewModelInject constructor(
 
   fun enableBeginnerFilter(enable: Boolean) {
     viewModelScope.launch {
-      protoStore.enableBeginnerFilter(enable)
+      // Add a call to proto store to enable beginner filter
     }
   }
 
   fun enableAdvancedFilter(enable: Boolean) {
     viewModelScope.launch {
-      protoStore.enableAdvancedFilter(enable)
+      // Add a call to proto store to enable advanced filter
+
     }
   }
 
   fun enableCompletedFilter(enable: Boolean) {
     viewModelScope.launch {
-      protoStore.enableCompletedFilter(enable)
+      // Add a call to proto store to enable completed filter
     }
   }
 
   fun toggleNightMode() {
     viewModelScope.launch {
-      prefsStore.toggleNightMode()
+      // Add a call to prefs store to toggle night mode
     }
   }
 }

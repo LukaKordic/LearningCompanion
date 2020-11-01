@@ -34,23 +34,17 @@
 
 package com.raywenderlich.android.learningcompanion.di
 
-import com.raywenderlich.android.learningcompanion.data.prefsstore.PrefsStore
-import com.raywenderlich.android.learningcompanion.data.prefsstore.PrefsStoreImpl
-import com.raywenderlich.android.learningcompanion.data.protostore.ProtoStore
-import com.raywenderlich.android.learningcompanion.data.protostore.ProtoStoreImpl
-import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.components.ApplicationComponent
 
 @Module
 @InstallIn(ApplicationComponent::class)
 abstract class StoreModule {
 
-  @Binds
-  abstract fun bindProtoStore(protoStoreImpl: ProtoStoreImpl): ProtoStore
+//  @Binds
+//  abstract fun bindProtoStore(protoStoreImpl: ProtoStoreImpl): ProtoStore
 
-  @Binds
-  abstract fun bindPrefsStore(prefsStoreImpl: PrefsStoreImpl): PrefsStore
+//  @Binds
+//  abstract fun bindPrefsStore(prefsStoreImpl: PrefsStoreImpl): PrefsStore
 }

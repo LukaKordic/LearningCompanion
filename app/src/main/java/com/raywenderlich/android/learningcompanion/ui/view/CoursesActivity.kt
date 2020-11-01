@@ -38,9 +38,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.raywenderlich.android.learningcompanion.R
@@ -49,7 +47,6 @@ import com.raywenderlich.android.learningcompanion.presentation.CoursesViewModel
 import com.raywenderlich.android.learningcompanion.ui.list.CoursesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_courses.*
-import kotlinx.android.synthetic.main.dialog_add_course.*
 
 @AndroidEntryPoint
 class CoursesActivity : AppCompatActivity() {
@@ -74,19 +71,9 @@ class CoursesActivity : AppCompatActivity() {
   }
 
   private fun subscribeToData() {
-    viewModel.courseUiModel.observe(this) {
-      adapter.setCourses(it.courses)
-      updateFilter(it.filter)
-    }
-
-    viewModel.nightMode.observe(this) { nightMode ->
-      if (nightMode) {
-        nightModeActive = true
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-      } else {
-        nightModeActive = false
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-      }
+    // Subscribe to get the data from the ViewModel
+    viewModel.courses.observe(this) {
+      adapter.setCourses(it )
     }
   }
 
@@ -119,11 +106,6 @@ class CoursesActivity : AppCompatActivity() {
         filter == FilterOption.Filter.BEGINNER_COMPLETED ||
         filter == FilterOption.Filter.ADVANCED_COMPLETED ||
         filter == FilterOption.Filter.ALL
-  }
-
-  private fun showAddCourseDialog() {
-    AlertDialog.Builder(this).setView(R.layout.dialog_add_course).show()
-    done.setOnClickListener { viewModel }
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {

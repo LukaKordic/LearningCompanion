@@ -35,13 +35,7 @@
 package com.raywenderlich.android.learningcompanion
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
-import com.raywenderlich.android.learningcompanion.data.prefsstore.PrefsStore
 import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltAndroidApp
 class App : Application()
