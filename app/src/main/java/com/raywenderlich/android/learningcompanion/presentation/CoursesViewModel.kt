@@ -60,6 +60,7 @@ class CoursesViewModel @ViewModelInject constructor(
     )
   }
 
+  val nightMode = prefsStore.isNightMode().asLiveData()
   val courseUiModel = courseUiModelFlow.asLiveData()
 
   private fun filterCourses(courses: List<Course>, filterOption: FilterOption): List<Course> {
@@ -92,6 +93,12 @@ class CoursesViewModel @ViewModelInject constructor(
   fun enableCompletedFilter(enable: Boolean) {
     viewModelScope.launch {
       protoStore.enableCompletedFilter(enable)
+    }
+  }
+
+  fun toggleNightMode() {
+    viewModelScope.launch {
+      prefsStore.toggleNightMode()
     }
   }
 }

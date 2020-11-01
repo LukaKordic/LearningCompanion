@@ -34,7 +34,39 @@
 
 package com.raywenderlich.android.learningcompanion.data.prefsstore
 
+import android.content.Context
+import androidx.datastore.preferences.createDataStore
+import androidx.datastore.preferences.edit
+import androidx.datastore.preferences.emptyPreferences
+import androidx.datastore.preferences.preferencesKey
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import java.io.IOException
 import javax.inject.Inject
 
-class PrefsStoreImpl @Inject constructor() : PrefsStore {
+private const val STORE_NAME = "learning_data_store"
+
+class PrefsStoreImpl @Inject constructor(@ApplicationContext context: Context) : PrefsStore {
+
+  private val dataStore = context.createDataStore(STORE_NAME)
+
+  override fun isNightMode() = dataStore.data.catch { exception ->
+    // dataStore.data throws an IOException when an error is encountered when reading data
+    if (exception is IOException) {
+      emit(emptyPreferences())
+    } else {
+      throw exception
+    }
+  }.map { it[PreferencesKeys.NIGHT_MODE_KEY] ?: false }
+
+  override suspend fun toggleNightMode() {
+    dataStore.edit {
+      it[PreferencesKeys.NIGHT_MODE_KEY] = !(it[PreferencesKeys.NIGHT_MODE_KEY] ?: false)
+    }
+  }
+}
+
+private object PreferencesKeys {
+  val NIGHT_MODE_KEY = preferencesKey<Boolean>("night_mode")
 }

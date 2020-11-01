@@ -9,4 +9,5 @@
   <string name="intermediate">Intermediate</string>
   <string name="advanced">Advanced</string>
   <string name="completed">Completed</string>
+  <string name="night_mode">Night mode</string>
 </resources>
