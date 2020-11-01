@@ -42,7 +42,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.raywenderlich.android.learningcompanion.R
-import com.raywenderlich.android.learningcompanion.data.FilterOption
 import com.raywenderlich.android.learningcompanion.presentation.CoursesViewModel
 import com.raywenderlich.android.learningcompanion.ui.list.CoursesAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -89,23 +88,6 @@ class CoursesActivity : AppCompatActivity() {
     filterCompleted.setOnCheckedChangeListener { _, isChecked ->
       viewModel.enableCompletedFilter(isChecked)
     }
-  }
-
-  private fun updateFilter(filter: FilterOption.Filter) {
-    filterBeginner.isChecked = filter == FilterOption.Filter.BEGINNER ||
-        filter == FilterOption.Filter.BEGINNER_ADVANCED ||
-        filter == FilterOption.Filter.BEGINNER_COMPLETED ||
-        filter == FilterOption.Filter.ALL
-
-    filterAdvanced.isChecked = filter == FilterOption.Filter.ADVANCED ||
-        filter == FilterOption.Filter.ADVANCED_COMPLETED ||
-        filter == FilterOption.Filter.BEGINNER_ADVANCED ||
-        filter == FilterOption.Filter.ALL
-
-    filterCompleted.isChecked = filter == FilterOption.Filter.COMPLETED ||
-        filter == FilterOption.Filter.BEGINNER_COMPLETED ||
-        filter == FilterOption.Filter.ADVANCED_COMPLETED ||
-        filter == FilterOption.Filter.ALL
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
