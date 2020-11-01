@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-option java_package = "com.raywenderlich.android.learningcompanion.data";
-option java_multiple_files = true;
-
-message Course {
-  string name = 1;
-  string description = 2;
-}

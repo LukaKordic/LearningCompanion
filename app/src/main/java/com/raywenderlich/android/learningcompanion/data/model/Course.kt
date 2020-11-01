@@ -41,4 +41,4 @@ data class Course(
     val completed: Boolean
 )
 
-enum class CourseLevel { BEGINNER, INTERMEDIATE, ADVANCED }
+enum class CourseLevel { BEGINNER, ADVANCED}

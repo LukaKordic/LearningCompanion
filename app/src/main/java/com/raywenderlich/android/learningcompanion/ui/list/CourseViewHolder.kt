@@ -59,7 +59,6 @@ class CourseViewHolder(override val containerView: View) : RecyclerView.ViewHold
     courseCompleted.setImageDrawable(completedResource)
     when (course.level) {
       CourseLevel.BEGINNER -> levelIndicator.setImageResource(R.drawable.shape_level_beginner)
-      CourseLevel.INTERMEDIATE -> levelIndicator.setImageResource(R.drawable.shape_level_intermediate)
       CourseLevel.ADVANCED -> levelIndicator.setImageResource(R.drawable.shape_level_advanced)
     }
   }

@@ -5,4 +5,8 @@
   <string name="name_hint">Name</string>
   <string name="btn_add_text">Add</string>
   <string name="difficulty_level">Difficulty level</string>
+  <string name="beginner">Beginner</string>
+  <string name="intermediate">Intermediate</string>
+  <string name="advanced">Advanced</string>
+  <string name="completed">Completed</string>
 </resources>

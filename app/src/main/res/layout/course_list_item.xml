@@ -39,7 +39,7 @@
   android:layout_height="wrap_content"
   android:layout_margin="12dp"
   android:backgroundTintMode="src_over"
-  android:backgroundTint="@color/primary_20"
+  android:backgroundTint="@color/primary_10"
   app:cardCornerRadius="16dp">
 
   <androidx.constraintlayout.widget.ConstraintLayout

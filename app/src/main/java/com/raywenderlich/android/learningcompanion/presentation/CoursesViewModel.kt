@@ -37,13 +37,63 @@ package com.raywenderlich.android.learningcompanion.presentation
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.raywenderlich.android.learningcompanion.data.FilterOption
 import com.raywenderlich.android.learningcompanion.data.getCourseList
+import com.raywenderlich.android.learningcompanion.data.model.Course
+import com.raywenderlich.android.learningcompanion.data.model.CourseLevel
 import com.raywenderlich.android.learningcompanion.data.prefsstore.PrefsStore
 import com.raywenderlich.android.learningcompanion.data.protostore.ProtoStore
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.launch
 
 class CoursesViewModel @ViewModelInject constructor(
     private val protoStore: ProtoStore,
     private val prefsStore: PrefsStore) : ViewModel() {
 
-  fun getCourses() = getCourseList().asLiveData()
+  private val filterOptionsFlow = protoStore.filtersFlow
+
+  private val courseUiModelFlow = combine(getCourseList(), filterOptionsFlow) { courses: List<Course>, filterOption: FilterOption ->
+    return@combine CourseUiModel(
+        courses = filterCourses(courses, filterOption),
+        filter = filterOption.filter
+    )
+  }
+
+  val courseUiModel = courseUiModelFlow.asLiveData()
+
+  private fun filterCourses(courses: List<Course>, filterOption: FilterOption): List<Course> {
+    return when (filterOption.filter) {
+      FilterOption.Filter.BEGINNER -> courses.filter { it.level == CourseLevel.BEGINNER }
+      FilterOption.Filter.NONE -> courses
+      FilterOption.Filter.ADVANCED -> courses.filter { it.level == CourseLevel.ADVANCED }
+      FilterOption.Filter.COMPLETED -> courses.filter { it.completed }
+      FilterOption.Filter.BEGINNER_ADVANCED -> courses.filter { it.level == CourseLevel.BEGINNER || it.level == CourseLevel.ADVANCED }
+      FilterOption.Filter.BEGINNER_COMPLETED -> courses.filter { it.level == CourseLevel.BEGINNER || it.completed }
+      FilterOption.Filter.ADVANCED_COMPLETED -> courses.filter { it.level == CourseLevel.ADVANCED || it.completed }
+      FilterOption.Filter.ALL -> courses
+      // There shouldn't be any other value for filtering
+      else -> throw UnsupportedOperationException("$filterOption doesn't exist.")
+    }
+  }
+
+  fun enableBeginnerFilter(enable: Boolean) {
+    viewModelScope.launch {
+      protoStore.enableBeginnerFilter(enable)
+    }
+  }
+
+  fun enableAdvancedFilter(enable: Boolean) {
+    viewModelScope.launch {
+      protoStore.enableAdvancedFilter(enable)
+    }
+  }
+
+  fun enableCompletedFilter(enable: Boolean) {
+    viewModelScope.launch {
+      protoStore.enableCompletedFilter(enable)
+    }
+  }
 }
+
+data class CourseUiModel(val courses: List<Course>, val filter: FilterOption.Filter)

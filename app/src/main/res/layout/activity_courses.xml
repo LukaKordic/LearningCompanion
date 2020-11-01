@@ -31,23 +31,41 @@
   ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   ~ THE SOFTWARE.
   -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:orientation="vertical"
   tools:context=".ui.view.CoursesActivity">
+
+  <com.google.android.material.chip.ChipGroup
+    android:id="@+id/filterOptions"
+    android:layout_width="match_parent"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.chip.Chip
+      android:id="@+id/filterBeginner"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/beginner" />
+
+    <com.google.android.material.chip.Chip
+      android:id="@+id/filterAdvanced"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/advanced" />
+
+    <com.google.android.material.chip.Chip
+      android:id="@+id/filterCompleted"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/completed" />
+  </com.google.android.material.chip.ChipGroup>
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/courseList"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
-
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/addCourse"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom|end"
-    android:layout_margin="16dp"
-    android:contentDescription="@string/add_new_course_action"
-    android:src="@drawable/icn_add" />
-</FrameLayout>
+</LinearLayout>

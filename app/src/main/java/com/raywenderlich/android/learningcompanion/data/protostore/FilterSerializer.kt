@@ -36,25 +36,21 @@ package com.raywenderlich.android.learningcompanion.data.protostore
 
 import androidx.datastore.CorruptionException
 import androidx.datastore.Serializer
-import androidx.datastore.preferences.protobuf.Internal
 import com.google.protobuf.InvalidProtocolBufferException
-import com.raywenderlich.android.learningcompanion.data.Course
-import java.io.IOException
+import com.raywenderlich.android.learningcompanion.data.FilterOption
 import java.io.InputStream
 import java.io.OutputStream
 
-class CourseSerializer : Serializer<Course> {
-  override fun readFrom(input: InputStream): Course {
+class FilterSerializer : Serializer<FilterOption> {
+  override fun readFrom(input: InputStream): FilterOption {
     try {
-      return Course.parseFrom(input)
+      return FilterOption.parseFrom(input)
     } catch (e: InvalidProtocolBufferException) {
       throw CorruptionException("Cannot read proto.", e)
     }
   }
 
-  override fun writeTo(t: Course, output: OutputStream) = try {
+  override fun writeTo(t: FilterOption, output: OutputStream) {
     t.writeTo(output)
-  } catch (exception: IOException) {
-    exception.printStackTrace()
   }
 }
