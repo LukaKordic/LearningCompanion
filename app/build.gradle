@@ -5,25 +5,6 @@ apply plugin: 'com.google.protobuf'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 
-protobuf {
-  protoc {
-    artifact = "com.google.protobuf:protoc:3.10.0"
-  }
-
-  // Generates the java Protobuf-lite code for the Protobufs in this project. See
-  // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
-  // for more information.
-  generateProtoTasks {
-    all().each { task ->
-      task.builtins {
-        java {
-          option 'lite'
-        }
-      }
-    }
-  }
-}
-
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -65,7 +46,7 @@ dependencies {
 
   // Support Libraries
   implementation 'androidx.appcompat:appcompat:1.2.0'
-  implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+  implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
   implementation 'com.google.android.material:material:1.2.1'
 
   // Testing Dependencies
