@@ -39,9 +39,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.raywenderlich.android.learningcompanion.data.getCourseList
+import com.raywenderlich.android.learningcompanion.data.preferences.SharedPrefs
 import kotlinx.coroutines.launch
 
-class CoursesViewModel @ViewModelInject constructor() : ViewModel() {
+class CoursesViewModel @ViewModelInject constructor(private val sharedPrefs: SharedPrefs) :
+    ViewModel() {
 
   val courses = getCourseList().asLiveData()
 
