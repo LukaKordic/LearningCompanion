@@ -35,10 +35,8 @@
 package com.raywenderlich.android.learningcompanion.data.prefsstore
 
 import android.content.Context
-import androidx.datastore.preferences.createDataStore
-import androidx.datastore.preferences.edit
-import androidx.datastore.preferences.emptyPreferences
-import androidx.datastore.preferences.preferencesKey
+import androidx.datastore.preferences.*
+import com.raywenderlich.android.learningcompanion.di.PREFS_NAME
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -49,7 +47,9 @@ private const val STORE_NAME = "learning_data_store"
 
 class PrefsStoreImpl @Inject constructor(@ApplicationContext context: Context) : PrefsStore {
 
-  private val dataStore = context.createDataStore(STORE_NAME)
+  private val dataStore = context.createDataStore(
+    name = STORE_NAME,
+    migrations = listOf(SharedPreferencesMigration(context, PREFS_NAME)))
 
   override fun isNightMode() = dataStore.data.catch { exception ->
     // dataStore.data throws an IOException when an error is encountered when reading data
